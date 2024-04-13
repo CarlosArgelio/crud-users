@@ -10,14 +10,19 @@ export const logErrors = (err: any, req: Request, res: Response, next: NextFunct
   }
   
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-  let messageResponse = {
-    message: err.message,
-  }
   if ( isDev ) {
-    messageResponse['stack'] = {
-      extra: 'ESTE ERROR SOLO SE PUEDE VER EN MODO DE DESARROLLO, EN PRODUCCION NO SE VISUALIZARA',
-      message: err.stack
+    let messageResponse = {
+      message: err.message,
+      stack: {
+        extra: 'ESTE ERROR SOLO SE PUEDE VER EN MODO DE DESARROLLO, EN PRODUCCION NO SE VISUALIZARA',
+        message: err.stack
+      }
     }
+    error(req, res, messageResponse, 409)
+  }
+  
+  let messageResponse = {
+    message: err.message
   }
 
   error(req, res, messageResponse, 409)
