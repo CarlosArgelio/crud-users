@@ -1,18 +1,14 @@
 import express from 'express';
-import dotenv from 'dotenv'
 
 import BodyParser from "body-parser";
 
 import middlewares from "./middlewares";
 import { networks } from "./networks";
+import { config } from "./configuration/config";
 
 const { logErrors, errorHandler, boomErrorHandler } = middlewares;
 
-dotenv.config({
-    path: './../.env'
-});
-
-const PORT = process.env.BACKEND_PORT_LISTEN;
+const { port } = config;
 
 const app = express();
 
@@ -29,6 +25,6 @@ app.use(logErrors);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
 })
