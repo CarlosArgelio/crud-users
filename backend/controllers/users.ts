@@ -1,7 +1,8 @@
 import { UserService } from "../services/users";
 
 export class UserController implements ControllersDefault {
-    constructor(private readonly services: UserService) {}
+    private readonly services: UserService
+    
     findAll() {
         return this.services.findAll();
     }
