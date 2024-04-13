@@ -1,6 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { UserController } from "./../controllers";
-import { success } from "./../middlewares/response";
+import middleares from "./../middlewares";
+import schemas from "./../schemas";
+
+// fix
+import { Properties } from "./../middlewares/schemaHandler";
+
+const { success, schemaHandler } = middleares
+const { createUser, updateUser, id } = schemas.users
 
 const users = Router();
 
@@ -62,9 +69,9 @@ const remove = (req: Request, res: Response, next: NextFunction) => {
 }
 
 users.get("/", findAll)
-users.post("/", create)
-users.get("/:id", findOne)
-users.put("/:id", update)
-users.delete("/:id", remove)
+users.post("/", schemaHandler(createUser, Properties.BODY), create)
+users.get("/:id", schemaHandler(id, Properties.PATH), findOne)
+users.put("/:id", schemaHandler(id, Properties.PATH), schemaHandler(updateUser, Properties.BODY), update)
+users.delete("/:id", schemaHandler(id, Properties.PATH), remove)
 
 export { users }
