@@ -7,6 +7,7 @@ export class FakerData {
 
         for (let i = 0; i < 10; i++) {
             this.users.push({
+                'id': faker.string.uuid(),
                 'name': faker.person.fullName(),
                 'lastName': faker.person.lastName(),
                 'email': faker.internet.email(),
