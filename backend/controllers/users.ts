@@ -28,6 +28,7 @@ export class UserController implements ControllersDefault {
     delete(id: string) {
         const user = this.services.findOne(id);
         if (!user) throw boom.notFound('user not found')
-        return this.services.delete(id);
+        const userDelete = this.services.delete(id);
+        return userDelete;
     }
 }

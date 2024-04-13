@@ -7,7 +7,7 @@ import schemas from "./../schemas";
 import { Properties } from "./../middlewares/schemaHandler";
 
 const { success, schemaHandler } = middleares
-const { createUser, updateUser, id } = schemas.users
+const { createUserSchema, updateUserSchema, idSchema } = schemas.users
 
 const users = Router();
 
@@ -61,17 +61,17 @@ const remove = (req: Request, res: Response, next: NextFunction) => {
 
     try {
         const controller = new UserController()
-        const user = controller.delete(id)
-        res.status(204)
+        controller.delete(id)
+        res.status(204).json()
     } catch (error) {
         next(error)
     }
 }
 
 users.get("/", findAll)
-users.post("/", schemaHandler(createUser, Properties.BODY), create)
-users.get("/:id", schemaHandler(id, Properties.PATH), findOne)
-users.put("/:id", schemaHandler(id, Properties.PATH), schemaHandler(updateUser, Properties.BODY), update)
-users.delete("/:id", schemaHandler(id, Properties.PATH), remove)
+users.post("/", schemaHandler(createUserSchema, Properties.BODY), create)
+users.get("/:id", schemaHandler(idSchema, Properties.PATH), findOne)
+users.put("/:id", schemaHandler(idSchema, Properties.PATH), schemaHandler(updateUserSchema, Properties.BODY), update)
+users.delete("/:id", schemaHandler(idSchema, Properties.PATH), remove)
 
 export { users }

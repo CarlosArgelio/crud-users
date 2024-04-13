@@ -1,9 +1,9 @@
-import { createUser, updateUser, id } from "./users";
+import { createUserSchema, updateUserSchema, idSchema } from "./users";
 
 export default {
     'users': {
-        id,
-        createUser,
-        updateUser
+        idSchema,
+        createUserSchema,
+        updateUserSchema
     }
 }
