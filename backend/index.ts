@@ -13,8 +13,8 @@ const { port } = config;
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
-})
+    res.sendFile(__dirname + '/public/welcome.html');
+  });
 
 app.use(BodyParser.json());
 
