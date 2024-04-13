@@ -1,18 +1,28 @@
 import { NextFunction, Request, Response } from "express";
+import { error } from "./response";
+import { config } from "./../configuration/config";
+
+const { isDev } = config
 
 export const logErrors = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log('logErrors')
     console.log(err);
     next(err);
   }
   
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log('errorHandler')
-    res.status(500).json({
-      message: err.message,
-      stack: err.stack
-    });
+  let messageResponse = {
+    message: err.message,
   }
+  if ( isDev ) {
+    messageResponse['stack'] = {
+      extra: 'ESTE ERROR SOLO SE PUEDE VER EN MODO DE DESARROLLO, EN PRODUCCION NO SE VISUALIZARA',
+      message: err.stack
+    }
+  }
+
+  error(req, res, messageResponse, 409)
+}
+
   
 export const boomErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     if (err.isBoom) {
