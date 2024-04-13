@@ -1,4 +1,4 @@
-interface ControllersDefault {
+export interface ControllersDefault {
     findAll: () => void
     findOne: (id: string) => void
     create: (data: any) => void

@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv'
 
+import BodyParser from "body-parser";
+
 import { networks } from "./networks";
 
 dotenv.config({
@@ -14,6 +16,8 @@ const app = express();
 app.get('/', (req, res) => {
     res.send('Hello World!');
 })
+
+app.use(BodyParser.json());
 
 // Endpoints
 networks(app);
