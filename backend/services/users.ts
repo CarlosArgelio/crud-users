@@ -35,5 +35,6 @@ export class UserService {
             throw new Error('User not found');
         }
         users.splice(index, 1);
+        return { id };
     }
 }
